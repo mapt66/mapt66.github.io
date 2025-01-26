@@ -1,0 +1,34 @@
+name: Atualizar Posts Diários
+
+on:
+  schedule:
+    - cron: "0 0 * * *" # Executa todos os dias à meia-noite
+  workflow_dispatch: # Permite executar manualmente
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Clonar o Repositório
+        uses: actions/checkout@v3
+
+      - name: Configurar Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: Instalar Dependências
+        run: npm install
+
+      - name: Gerar Posts
+        run: node generatePosts.js
+
+      - name: Fazer Push
+        run: |
+          git config --global user.name "mapt66"
+          git config --global user.email "mapt@ua.pt"
+          git add _posts/
+          git commit -m "Atualizar posts diários"
+          git push
+
