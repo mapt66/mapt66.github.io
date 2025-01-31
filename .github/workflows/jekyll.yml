@@ -20,7 +20,7 @@ jobs:
 
       - name: Run Script to Generate Posts
         run: |
-          node generate-posts.js # Altere para o nome real do script
+          node generatePosts.js # Altere para o nome real do script
           git status
 
       - name: Commit Changes if Needed
