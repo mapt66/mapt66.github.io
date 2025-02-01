@@ -2,7 +2,7 @@ name: Update Jekyll Site
 
 on:
   schedule:
-    - cron: "0 0 * * *" # Corre todos os dias à meia-noite
+    - cron: "59 23 * * *" # Corre todos os dias à meia-noite
   workflow_dispatch: # Permite execução manual
 
 jobs:
