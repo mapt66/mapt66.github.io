@@ -12,7 +12,7 @@ const endDate = new Date();
 const generatePosts = () => {
     let currentDate = startDate;
 
-    while (currentDate <= endDate) {
+    while (currentDate < endDate) {
         const dateString = currentDate.toISOString().split('T')[0];
         const fileName = `${dateString}-ResumoDiario.md`;
         const filePath = path.join(postsDir, fileName);
