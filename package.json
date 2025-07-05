@@ -25,7 +25,10 @@
   },
   "dependencies": {
     "@popperjs/core": "^2.11.8",
-    "bootstrap": "^5.3.3"
+    "axios": "^1.7.9",
+    "bootstrap": "^5.3.3",
+    "fs": "^0.0.1-security",
+    "puppeteer": "^24.3.0"
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",

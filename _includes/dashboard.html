@@ -1,0 +1,49 @@
+
+            <div class="card p-3">
+                <h4>Temperatura Máx</h4>
+                <h2 id="temp-max" class="text-danger">--°C</h2>
+            </div>
+        
+       
+            <div class="card p-3">
+                <h4>Temperatura Mín</h4>
+                <h2 id="temp-min" class="text-primary">--°C</h2>
+            </div>
+        
+        
+            <div class="card p-3">
+                <h4>Precipitação</h4>
+                <h2 id="precipitacao" class="text-info">-- mm</h2>
+            </div>
+       
+    
+            <div class="card p-3">
+                <h4>Rajada Máx</h4>
+                <h2 id="rajada-max" class="text-warning">-- km/h</h2>
+            </div>
+       
+    
+
+<style>
+    .card {
+        background-color: #ffffff;
+        color: #212529;
+        border: 1px solid #dee2e6;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+</style>
+<script>
+    const dadosMeteo = {
+        tempMax: 22,
+        tempMin: 12,
+        precipitacao: 8,
+        rajadaMax: 45
+    };
+
+    document.getElementById('temp-max').innerText = dadosMeteo.tempMax + '°C';
+    document.getElementById('temp-min').innerText = dadosMeteo.tempMin + '°C';
+    document.getElementById('precipitacao').innerText = dadosMeteo.precipitacao + ' mm';
+    document.getElementById('rajada-max').innerText = dadosMeteo.rajadaMax + ' km/h';
+</script>
+
+
