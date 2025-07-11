@@ -16,7 +16,7 @@ async function fetchDataAndUpdate() {
       rainText.textContent = data.precipTotal + ' mm'
       windText.textContent = data.windSpeed + ' km/h'
 
-      updateTimeDiv.textContent = 'Última atualização: ' + new Date().toTimeString().split(' ')[0]
+      updateTimeDiv.textContent = 'Última atualização : ' + new Date().toTimeString().split(' ')[0]
     }
   } catch (err) {
     console.error('Erro a buscar dados:', err);
