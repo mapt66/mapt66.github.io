@@ -2,7 +2,8 @@ name: Daily post
 
 on:
   schedule:
-    # Runs daily at 07:10 UTC (adjust if you want a fixed Lisbon local time)
+    # Runs daily at 07:10 UTC.
+    # Tip: if you want a fixed Lisbon local time year-round, change the cron when DST changes.
     - cron: "10 7 * * *"
   workflow_dispatch:
 
@@ -19,6 +20,8 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          ref: main
 
       - name: Create daily post (if missing)
         shell: bash
@@ -27,7 +30,7 @@ jobs:
 
           export TZ="Europe/Lisbon"
           yyyy_mm_dd="$(date +%F)"
-          now_iso="$(date +"%F %T")"
+          now_iso="$(date +"%F %T %z")"
 
           posts_dir="_posts"
           slug="resumo-meteorologico"
@@ -69,4 +72,4 @@ jobs:
           git config user.email "github-actions[bot]@users.noreply.github.com"
           git add _posts
           git commit -m "chore(posts): add daily post"
-          git push
+          git push origin HEAD:main

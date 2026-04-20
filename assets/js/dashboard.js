@@ -10,14 +10,15 @@ async function fetchDataAndUpdate() {
 
     const updateTimeDiv = document.getElementById('update-time');
 
-    if (tempText && data.temp !== undefined) {
-      tempText.textContent = data.temp + ' °C'
-      humidityText.textContent = data.humidity + ' %'
-      rainText.textContent = data.precipTotal + ' mm'
-      windText.textContent = data.windSpeed + ' km/h'
+    if (!tempText || !rainText || !humidityText || !windText || !updateTimeDiv) return;
 
-      updateTimeDiv.textContent = 'Última atualização : ' + new Date().toTimeString().split(' ')[0]
-    }
+    if (data?.temp !== undefined) tempText.textContent = `${data.temp} \u00b0C`;
+    if (data?.humidity !== undefined) humidityText.textContent = `${data.humidity} %`;
+    if (data?.precipTotal !== undefined) rainText.textContent = `${data.precipTotal} mm`;
+    if (data?.windSpeed !== undefined) windText.textContent = `${data.windSpeed} km/h`;
+
+    updateTimeDiv.textContent =
+      `\u00daltima atualiza\u00e7\u00e3o: ${new Date().toTimeString().split(' ')[0]}`;
   } catch (err) {
     console.error('Erro a buscar dados:', err);
   }
@@ -25,5 +26,5 @@ async function fetchDataAndUpdate() {
 
 document.addEventListener('DOMContentLoaded', () => {
   fetchDataAndUpdate();
-  setInterval(fetchDataAndUpdate, 0.5 * 60 * 1000);
+  setInterval(fetchDataAndUpdate, 30_000);
 });
