@@ -1,0 +1,72 @@
+name: Daily post
+
+on:
+  schedule:
+    # Runs daily at 07:10 UTC (adjust if you want a fixed Lisbon local time)
+    - cron: "10 7 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: "daily-post"
+  cancel-in-progress: false
+
+jobs:
+  create_post:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Create daily post (if missing)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          export TZ="Europe/Lisbon"
+          yyyy_mm_dd="$(date +%F)"
+          now_iso="$(date +"%F %T")"
+
+          posts_dir="_posts"
+          slug="resumo-meteorologico"
+          filename="${yyyy_mm_dd}-${slug}.md"
+          path="${posts_dir}/${filename}"
+
+          mkdir -p "${posts_dir}"
+
+          if [ -f "${path}" ]; then
+            echo "Post already exists: ${path}"
+            exit 0
+          fi
+
+          cat > "${path}" <<EOF
+          ---
+          layout: post
+          title: "Resumo Diario - ${yyyy_mm_dd}"
+          description: "Resumo meteorologico diario."
+          date: ${now_iso}
+          categories: [Daily Weather]
+          tags: [daily]
+          ---
+
+          EOF
+
+          echo "Created: ${path}"
+
+      - name: Commit & push (if changed)
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          if git diff --quiet; then
+            echo "No changes to commit."
+            exit 0
+          fi
+
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts
+          git commit -m "chore(posts): add daily post"
+          git push
