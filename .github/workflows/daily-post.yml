@@ -63,13 +63,14 @@ jobs:
         run: |
           set -euo pipefail
 
-          if git diff --quiet; then
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add _posts
+
+          if git diff --cached --quiet; then
             echo "No changes to commit."
             exit 0
           fi
 
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-          git add _posts
           git commit -m "chore(posts): add daily post"
           git push origin HEAD:main
