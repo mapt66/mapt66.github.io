@@ -45,16 +45,16 @@ jobs:
           fi
 
           cat > "${path}" <<EOF
-          ---
-          layout: post
-          title: "Resumo Diario - ${yyyy_mm_dd}"
-          description: "Resumo meteorologico diario."
-          date: ${now_iso}
-          categories: [Daily Weather]
-          tags: [daily]
-          ---
+---
+layout: post
+title: "Resumo Diario - ${yyyy_mm_dd}"
+description: "Resumo meteorologico diario."
+date: ${now_iso}
+categories: [Daily Weather]
+tags: [daily]
+---
 
-          EOF
+EOF
 
           echo "Created: ${path}"
 
