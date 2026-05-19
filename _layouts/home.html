@@ -50,7 +50,7 @@ refactor: true
 <div id="post-list" class="flex-grow-1 px-xl-1">
   {% for post in posts %}
     <article class="card-wrapper card">
-      <a href="{{ post.url | relative_url }}"style="height: 300px;" class="post-preview row g-0 flex-md-row-reverse">
+      <a href="{{ post.url | relative_url }}" class="post-preview row g-0 flex-md-row-reverse">
         {% assign card_body_col = '12' %}
 
         {% if post.image %}
@@ -75,10 +75,10 @@ refactor: true
         {% endif %}
 
         <div class="col-md-{{ card_body_col }}">
-          <div class="card-body d-flex flex-column">
+          <div class="card-body d-flex flex-column h-100">
             <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
 
-            <div class="card-text content mt-0 mb-3">
+            <div class="card-text content mt-0 mb-2">
               <p>{% include post-description.html %}</p>
             </div>
 
@@ -88,27 +88,27 @@ refactor: true
             {% endif %}
 
             {% if has_kpis %}
-              <div class="text-muted small mb-2">
+              <div class="text-muted small mb-3 d-flex flex-wrap gap-2">
                 {% if post.tmax %}
-                  <span class="me-3">
+                  <span class="me-2">
                     <i class="fa-solid fa-temperature-high text-danger me-1"></i>
                     Tmax {{ post.tmax }}&nbsp;&deg;C
                   </span>
                 {% endif %}
                 {% if post.tmin %}
-                  <span class="me-3">
+                  <span class="me-2">
                     <i class="fa-solid fa-temperature-low text-primary me-1"></i>
                     Tmin {{ post.tmin }}&nbsp;&deg;C
                   </span>
                 {% endif %}
                 {% if post.rain_mm %}
-                  <span class="me-3">
+                  <span class="me-2">
                     <i class="fa-solid fa-cloud-rain text-info me-1"></i>
                     {{ post.rain_mm }}&nbsp;mm
                   </span>
                 {% endif %}
                 {% if post.gust_kmh %}
-                  <span class="me-3">
+                  <span class="me-2">
                     <i class="fa-solid fa-wind text-warning me-1"></i>
                     {{ post.gust_kmh }}&nbsp;km/h
                   </span>
@@ -116,7 +116,7 @@ refactor: true
               </div>
             {% endif %}
 
-            <div class="post-meta flex-grow-1 d-flex align-items-end">
+            <div class="post-meta mt-auto d-flex align-items-end">
               <div class="me-auto">
                 <!-- posted date -->
                 <i class="far fa-calendar fa-fw me-1"></i>
