@@ -76,72 +76,100 @@ refactor: true
 
         <div class="col-md-{{ card_body_col }}">
           <div class="card-body d-flex flex-column h-100">
-            <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
-
-            <div class="card-text content mt-0 mb-2">
-              <p>{% include post-description.html %}</p>
-            </div>
-
             {% assign has_kpis = false %}
             {% if post.tmax or post.tmin or post.rain_mm or post.gust_kmh %}
               {% assign has_kpis = true %}
             {% endif %}
 
-            {% if has_kpis %}
-              <div class="text-muted small mb-3 d-flex flex-wrap gap-2">
-                {% if post.tmax %}
-                  <span class="me-2">
-                    <i class="fa-solid fa-temperature-high text-danger me-1"></i>
-                    Tmax {{ post.tmax }}&nbsp;&deg;C
-                  </span>
-                {% endif %}
-                {% if post.tmin %}
-                  <span class="me-2">
-                    <i class="fa-solid fa-temperature-low text-primary me-1"></i>
-                    Tmin {{ post.tmin }}&nbsp;&deg;C
-                  </span>
-                {% endif %}
-                {% if post.rain_mm %}
-                  <span class="me-2">
-                    <i class="fa-solid fa-cloud-rain text-info me-1"></i>
-                    {{ post.rain_mm }}&nbsp;mm
-                  </span>
-                {% endif %}
-                {% if post.gust_kmh %}
-                  <span class="me-2">
-                    <i class="fa-solid fa-wind text-warning me-1"></i>
-                    {{ post.gust_kmh }}&nbsp;km/h
-                  </span>
-                {% endif %}
-              </div>
-            {% endif %}
+            <div class="row g-3 h-100">
+              <div class="col-12 col-lg-8 d-flex flex-column">
+                <h1 class="card-title my-2 mt-md-0">{{ post.title }}</h1>
 
-            <div class="post-meta mt-auto d-flex align-items-end">
-              <div class="me-auto">
-                <!-- posted date -->
-                <i class="far fa-calendar fa-fw me-1"></i>
-                {% include datetime.html date=post.date lang=lang %}
-
-                <!-- categories -->
-                {% if post.categories.size > 0 %}
-                  <i class="far fa-folder-open fa-fw me-1"></i>
-                  <span class="categories">
-                    {% for category in post.categories %}
-                      {{ category }}
-                      {%- unless forloop.last -%},{%- endunless -%}
-                    {% endfor %}
-                  </span>
-                {% endif %}
-              </div>
-
-              {% if post.pin %}
-                <div class="pin ms-1">
-                  <i class="fas fa-thumbtack fa-fw"></i>
-                  <span>{{ site.data.locales[lang].post.pin_prompt }}</span>
+                <div class="card-text content mt-0 mb-2">
+                  <p>{% include post-description.html %}</p>
                 </div>
-              {% endif %}
+
+                {% if post.summary and post.summary != "" %}
+                  <div class="text-muted small mb-2">
+                    <i class="fa-solid fa-quote-left opacity-50 me-1"></i>
+                    {{ post.summary }}
+                  </div>
+                {% endif %}
+
+                <div class="post-meta mt-auto d-flex align-items-end">
+                  <div class="me-auto">
+                    <!-- posted date -->
+                    <i class="far fa-calendar fa-fw me-1"></i>
+                    {% include datetime.html date=post.date lang=lang %}
+
+                    <!-- categories -->
+                    {% if post.categories.size > 0 %}
+                      <i class="far fa-folder-open fa-fw me-1"></i>
+                      <span class="categories">
+                        {% for category in post.categories %}
+                          {{ category }}
+                          {%- unless forloop.last -%},{%- endunless -%}
+                        {% endfor %}
+                      </span>
+                    {% endif %}
+                  </div>
+
+                  {% if post.pin %}
+                    <div class="pin ms-1">
+                      <i class="fas fa-thumbtack fa-fw"></i>
+                      <span>{{ site.data.locales[lang].post.pin_prompt }}</span>
+                    </div>
+                  {% endif %}
+                </div>
+                <!-- .post-meta -->
+              </div>
+
+              <div class="col-12 col-lg-4">
+                {% if has_kpis %}
+                  <div class="border rounded-3 p-3 h-100">
+                    <div class="text-muted small mb-2">
+                      <i class="fa-solid fa-chart-simple me-1 opacity-75"></i>
+                      Destaques
+                    </div>
+
+                    <div class="d-flex flex-column gap-2 small">
+                      {% if post.tmax %}
+                        <div class="d-flex align-items-center justify-content-between">
+                          <span class="text-muted"><i class="fa-solid fa-temperature-high text-danger me-1"></i>Tmax</span>
+                          <span class="fw-semibold">{{ post.tmax }}&nbsp;&deg;C</span>
+                        </div>
+                      {% endif %}
+                      {% if post.tmin %}
+                        <div class="d-flex align-items-center justify-content-between">
+                          <span class="text-muted"><i class="fa-solid fa-temperature-low text-primary me-1"></i>Tmin</span>
+                          <span class="fw-semibold">{{ post.tmin }}&nbsp;&deg;C</span>
+                        </div>
+                      {% endif %}
+                      {% if post.rain_mm %}
+                        <div class="d-flex align-items-center justify-content-between">
+                          <span class="text-muted"><i class="fa-solid fa-cloud-rain text-info me-1"></i>Chuva</span>
+                          <span class="fw-semibold">{{ post.rain_mm }}&nbsp;mm</span>
+                        </div>
+                      {% endif %}
+                      {% if post.gust_kmh %}
+                        <div class="d-flex align-items-center justify-content-between">
+                          <span class="text-muted"><i class="fa-solid fa-wind text-warning me-1"></i>Rajada</span>
+                          <span class="fw-semibold">{{ post.gust_kmh }}&nbsp;km/h</span>
+                        </div>
+                      {% endif %}
+                    </div>
+
+                    {% if post.tags and post.tags.size > 0 %}
+                      <div class="mt-3 d-flex flex-wrap gap-2">
+                        {% for t in post.tags limit: 6 %}
+                          <span class="badge rounded-pill text-bg-light border">{{ t }}</span>
+                        {% endfor %}
+                      </div>
+                    {% endif %}
+                  </div>
+                {% endif %}
+              </div>
             </div>
-            <!-- .post-meta -->
           </div>
           <!-- .card-body -->
         </div>
