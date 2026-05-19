@@ -49,6 +49,11 @@ jobs:
 layout: post
 title: "Resumo Diario - ${yyyy_mm_dd}"
 description: "Resumo meteorologico diario."
+summary: ""
+tmax:
+tmin:
+rain_mm:
+gust_kmh:
 date: ${now_iso}
 categories: [Daily Weather]
 tags: [daily]
