@@ -82,6 +82,40 @@ refactor: true
               <p>{% include post-description.html %}</p>
             </div>
 
+            {% assign has_kpis = false %}
+            {% if post.tmax or post.tmin or post.rain_mm or post.gust_kmh %}
+              {% assign has_kpis = true %}
+            {% endif %}
+
+            {% if has_kpis %}
+              <div class="text-muted small mb-2">
+                {% if post.tmax %}
+                  <span class="me-3">
+                    <i class="fa-solid fa-temperature-high text-danger me-1"></i>
+                    Tmax {{ post.tmax }}&nbsp;&deg;C
+                  </span>
+                {% endif %}
+                {% if post.tmin %}
+                  <span class="me-3">
+                    <i class="fa-solid fa-temperature-low text-primary me-1"></i>
+                    Tmin {{ post.tmin }}&nbsp;&deg;C
+                  </span>
+                {% endif %}
+                {% if post.rain_mm %}
+                  <span class="me-3">
+                    <i class="fa-solid fa-cloud-rain text-info me-1"></i>
+                    {{ post.rain_mm }}&nbsp;mm
+                  </span>
+                {% endif %}
+                {% if post.gust_kmh %}
+                  <span class="me-3">
+                    <i class="fa-solid fa-wind text-warning me-1"></i>
+                    {{ post.gust_kmh }}&nbsp;km/h
+                  </span>
+                {% endif %}
+              </div>
+            {% endif %}
+
             <div class="post-meta flex-grow-1 d-flex align-items-end">
               <div class="me-auto">
                 <!-- posted date -->
